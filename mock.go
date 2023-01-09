@@ -7,5 +7,5 @@ import (
 
 func handleResponse(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "hello\n")
-	fmt.Println("request")
+	fmt.Println("request\n")
 }
