@@ -8,19 +8,29 @@ import (
 
 func handle(w http.ResponseWriter, req *http.Request) {
 
+	jsightSpecPath := "./jsight/myapi.jst"
 	reqBody, _ := io.ReadAll(req.Body)
 
 	err := jSight.ValidateHTTPRequest(
-		"./jsight/myapi.jst",
+		jsightSpecPath,
 		req.Method,
 		req.RequestURI,
 		req.Header,
 		reqBody,
 	)
 
-	fmt.Printf("Reported by: %s, %d\n", err.ReportedBy(), err.Position().Index())
+	if err != nil {
+		fmt.Fprintf(w, err.ToJSON())
+		return
+	}
 
 	handleResponse(w, req)
+
+	/*err = jSight.ValidateHTTPResponse(
+		jsightSpecPath,
+		req.Method,
+		req.RequestURI,
+	)*/
 }
 
 var jSight JSight
