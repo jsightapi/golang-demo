@@ -29,7 +29,10 @@ type JSightValidationError interface {
 }
 
 type JSightPosition interface {
+	Filepath() string
 	Index() int
+	Line() int
+	Col() int
 }
 
 //-------------------------- implementation ---------------------------
