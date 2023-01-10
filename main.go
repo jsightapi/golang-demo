@@ -11,6 +11,7 @@ var jSight JSight
 func main() {
 	jSight = NewJSight("./plugins/jsightplugin.so")
 	http.HandleFunc("/", handle)
+	fmt.Printf("\n# JSight plugin info\n\n%s\n", jSight.Stat())
 	fmt.Println("Listening on 8000 port…")
 	http.ListenAndServe(":8000", nil)
 }
@@ -19,6 +20,8 @@ func handle(w http.ResponseWriter, req *http.Request) {
 
 	jsightSpecPath := "./jsight/myapi.jst"
 	reqBody, _ := io.ReadAll(req.Body)
+
+	jSight.ClearCache() // Comment this line in production.
 
 	err := jSight.ValidateHTTPRequest(
 		jsightSpecPath,
