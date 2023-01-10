@@ -6,6 +6,15 @@ import (
 	"net/http"
 )
 
+var jSight JSight
+
+func main() {
+	jSight = NewJSight("./plugins/jsightplugin.so")
+	http.HandleFunc("/", handle)
+	fmt.Println("Listening on 8000 port…")
+	http.ListenAndServe(":8000", nil)
+}
+
 func handle(w http.ResponseWriter, req *http.Request) {
 
 	jsightSpecPath := "./jsight/myapi.jst"
@@ -20,24 +29,28 @@ func handle(w http.ResponseWriter, req *http.Request) {
 	)
 
 	if err != nil {
-		fmt.Fprintf(w, err.ToJSON())
+		w.Write([]byte(err.ToJSON()))
 		return
 	}
 
-	handleResponse(w, req)
+	responseStatusCode := 200
+	responseBody := "\"Cat is created!\""
+	responseHeaders := http.Header{}
 
-	/*err = jSight.ValidateHTTPResponse(
+	err = jSight.ValidateHTTPResponse(
 		jsightSpecPath,
 		req.Method,
 		req.RequestURI,
-	)*/
-}
+		responseStatusCode,
+		responseHeaders,
+		[]byte(responseBody),
+	)
 
-var jSight JSight
+	if err != nil {
+		w.Write([]byte(err.ToJSON()))
+		return
+	}
 
-func main() {
-	jSight = NewJSight("./plugins/jsightplugin.so")
-	http.HandleFunc("/", handle)
-	fmt.Println("Listening on 8000 port")
-	http.ListenAndServe(":8000", nil)
+	w.WriteHeader(responseStatusCode)
+	w.Write([]byte(responseBody))
 }
