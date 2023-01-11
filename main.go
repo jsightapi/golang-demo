@@ -18,7 +18,7 @@ func main() {
 
 func handle(w http.ResponseWriter, req *http.Request) {
 
-	jsightSpecPath := "./jsight/myapi.jst"
+	jsightSpecPath := "./mock/server.jst"
 	reqBody, _ := io.ReadAll(req.Body)
 
 	jSight.ClearCache() // Comment this line in production.
@@ -36,9 +36,9 @@ func handle(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	responseStatusCode := 200
-	responseBody := "\"Cat is created!\""
-	responseHeaders := http.Header{}
+	responseStatusCode := mockStatusCode()
+	responseBody := mockResponseBody()
+	responseHeaders := mockResponseHeaders()
 
 	err = jSight.ValidateHTTPResponse(
 		jsightSpecPath,
@@ -46,7 +46,7 @@ func handle(w http.ResponseWriter, req *http.Request) {
 		req.RequestURI,
 		responseStatusCode,
 		responseHeaders,
-		[]byte(responseBody),
+		responseBody,
 	)
 
 	if err != nil {
@@ -54,6 +54,7 @@ func handle(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	addHeaders(w, responseHeaders)
 	w.WriteHeader(responseStatusCode)
 	w.Write([]byte(responseBody))
 }
