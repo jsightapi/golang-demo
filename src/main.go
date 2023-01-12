@@ -36,7 +36,7 @@ func handle(w http.ResponseWriter, req *http.Request) {
 	}
 
 	responseStatusCode := 200
-	responseBody := []byte("\"User created!\"")
+	responseBody := []byte("\"User created!\"\n")
 	responseHeaders := http.Header{}
 
 	err = jSight.ValidateHTTPResponse(
