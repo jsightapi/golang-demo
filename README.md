@@ -8,4 +8,3 @@
 5. Run "bad" test request and get a validation error: `curl --request POST localhost:8000/users -d '{"id":123}'`.
 
 NOTE: for running on Windows read `./windows/README.md`.
-
