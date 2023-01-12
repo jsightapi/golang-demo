@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  golang:
+    image: golang:1.18-stretch
+    container_name: golang-demo-win
+    ports:
+      - 8000:8000
+    volumes:
+      - ./../src:/opt/app
+    working_dir: /opt/app
+    tty: true
