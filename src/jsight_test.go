@@ -7,8 +7,8 @@ import (
 )
 
 func Test_JSightValidationErrorWithPosition(t *testing.T) {
-	jSight := NewJSight("./plugins/jsightplugin.so")
-	jsightSpecPath := "./testdata/test.jst"
+	jSight := NewJSight("./lib/jsightplugin.so")
+	jsightSpecPath := "./../testdata/test.jst"
 
 	err := jSight.ValidateHTTPRequest(
 		jsightSpecPath,
@@ -32,8 +32,8 @@ func Test_JSightValidationErrorWithPosition(t *testing.T) {
 }
 
 func Test_JSightValidationErrorWithoutPosition(t *testing.T) {
-	jSight := NewJSight("./plugins/jsightplugin.so")
-	jsightSpecPath := "./testdata/test.jst"
+	jSight := NewJSight("./lib/jsightplugin.so")
+	jsightSpecPath := "./../testdata/test.jst"
 
 	err := jSight.ValidateHTTPRequest(
 		jsightSpecPath,
@@ -51,6 +51,32 @@ func Test_JSightValidationErrorWithoutPosition(t *testing.T) {
 	if err.Position() != nil {
 		t.Error("Position must be nil.")
 	}
+}
+
+func Test_NilValues(t *testing.T) {
+	jSight := NewJSight("./lib/jsightplugin.so")
+	jsightSpecPath := "./../testdata/test.jst"
+
+	err := jSight.ValidateHTTPRequest(
+		jsightSpecPath,
+		"POST",
+		"/users",
+		nil,
+		nil,
+	)
+
+	assertString(t, err.Detail(), "Empty JSON", "Nil in request")
+
+	err = jSight.ValidateHTTPResponse(
+		jsightSpecPath,
+		"POST",
+		"/users",
+		200,
+		nil,
+		nil,
+	)
+
+	assertString(t, err.Detail(), "Empty JSON", "Nil in response")
 }
 
 func assertInt(t *testing.T, a int, e int, err string) {

@@ -8,6 +8,7 @@ services:
       - 8000:8000
     volumes:
       - ./../../../src:/opt/app/src
+      - ./../../../testdata:/opt/app/testdata
       - ./../../../lib/1.0.0/go-19:/opt/app/src/lib
       - ./../../../mock:/tmp/mock
     working_dir: /opt/app/src

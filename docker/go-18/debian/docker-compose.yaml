@@ -8,6 +8,7 @@ services:
       - 8000:8000
     volumes:
       - ./../../../src:/go/src/github.com/jsightapi/golang-demo/src
+      - ./../../../testdata:/opt/app/testdata
       - ./../../../lib/1.0.0/go-18:/go/src/github.com/jsightapi/golang-demo/src/lib
       - ./../../../mock:/go/src/github.com/jsightapi/golang-demo/src/mock
     working_dir: /go/src/github.com/jsightapi/golang-demo/src
