@@ -8,7 +8,7 @@ services:
       - 8000:8000
     volumes:
       - ./../../../src:/go/src/github.com/jsightapi/golang-demo
-      - ./../../../lib/1.0.0/go-18:/go/src/github.com/jsightapi/golang-demo/plugins
+      - ./../../../lib/1.0.0/go-18:/go/src/github.com/jsightapi/golang-demo/lib
       - ./../../../mock:/go/src/github.com/jsightapi/golang-demo/mock
     working_dir: /go/src/github.com/jsightapi/golang-demo
     command: go run main.go jsight.go mock.go
