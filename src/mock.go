@@ -7,19 +7,21 @@ import (
 	"strings"
 )
 
+var mockDir = "/tmp/mock/"
+
 func mockStatusCode() int {
-	bb, _ := os.ReadFile("./mock/response_code")
+	bb, _ := os.ReadFile(mockDir + "response_code")
 	c, _ := strconv.Atoi(string(bb))
 	return c
 }
 
 func mockResponseBody() []byte {
-	bb, _ := os.ReadFile("./mock/response_body")
+	bb, _ := os.ReadFile(mockDir + "response_body")
 	return bb
 }
 
 func mockResponseHeaders() http.Header {
-	h, _ := os.ReadFile("./mock/response_headers")
+	h, _ := os.ReadFile(mockDir + "response_headers")
 	return parseHttpHeaders(string(h))
 }
 
