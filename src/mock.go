@@ -28,7 +28,7 @@ func mockResponseHeaders() http.Header {
 func parseHttpHeaders(rawHeaders string) http.Header {
 	headers := http.Header{}
 	for _, s := range strings.Split(rawHeaders, "\n") {
-		h := strings.SplitN(s, ":", 2)
+		h := strings.SplitN(s, ": ", 2)
 		if len(h) > 1 {
 			k := h[0]
 			v := h[1]
