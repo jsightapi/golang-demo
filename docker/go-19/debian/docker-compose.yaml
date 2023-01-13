@@ -7,8 +7,8 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./../../../src:/go/src/github.com/jsightapi/golang-demo
-      - ./../../../lib/1.0.0/go-19:/go/src/github.com/jsightapi/golang-demo/lib
-      - ./../../../mock:/go/src/github.com/jsightapi/golang-demo/mock
-    working_dir: /go/src/github.com/jsightapi/golang-demo
+      - ./../../../src:/opt/app/src
+      - ./../../../lib/1.0.0/go-19:/opt/app/src/lib
+      - ./../../../mock:/tmp/mock
+    working_dir: /opt/app/src
     command: go run main.go jsight.go mock.go

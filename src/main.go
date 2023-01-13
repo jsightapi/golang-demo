@@ -18,7 +18,7 @@ func main() {
 
 func handle(w http.ResponseWriter, req *http.Request) {
 
-	jsightSpecPath := "./mock/server.jst"
+	jsightSpecPath := "/tmp/mock/server.jst"
 	reqBody, _ := io.ReadAll(req.Body)
 
 	jSight.ClearCache() // Comment this line in production.
