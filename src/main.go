@@ -9,7 +9,7 @@ import (
 var jSight JSight
 
 func main() {
-	jSight = NewJSight("./lib/jsightplugin.so")
+	jSight = NewJSight("./jsightplugin.so")
 	http.HandleFunc("/", handle)
 	fmt.Println("Listening on 8000 port…")
 	http.ListenAndServe(":8000", nil)

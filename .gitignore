@@ -1,3 +1,4 @@
-src/lib/jsightplugin.so
+src/jsightplugin.so
 mock
+src/mock
 src/lib
